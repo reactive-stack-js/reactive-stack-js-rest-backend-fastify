@@ -1,0 +1,29 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"allowJs": true,
+		"target": "es6",
+		"module": "commonjs",
+		"moduleResolution": "node",
+		"removeComments": true,
+		"preserveConstEnums": true,
+		"sourceMap": true,
+		"declaration": true,
+		"rootDir": "./src",
+		"outDir": "./dist"
+		//		"noImplicitAny": true,
+		//		"strict": true
+	},
+	"include": [
+		"./src/**/*"
+	],
+	"exclude": [
+		".idea",
+		".sonarlint",
+		".nyc_output",
+		"coverage",
+		"docs",
+		"node_modules",
+		"test"
+	]
+}

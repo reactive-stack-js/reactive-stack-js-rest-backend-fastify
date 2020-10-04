@@ -1,2 +1,3 @@
-# reactive-stack-js-rest-backend-fastify
-reactive-stack-js rest backend with fastify
+## ReactiveStack backend with fastify
+
+See [reactive-stack](https://github.com/cope/reactive-stack) for more info.
