@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-'use strict';
+"use strict";
 
-import ADialog from '../_reactivestack/_a.dialog';
+import ADialog from "../_reactivestack/_a.dialog";
 
 export default class AboutDialog extends ADialog {
 
@@ -18,7 +18,7 @@ export default class AboutDialog extends ADialog {
 	}
 
 	protected set config(config) {
-		console.log('about config ignored...', config);
+		console.log("about config ignored...", config);
 	}
 
 }

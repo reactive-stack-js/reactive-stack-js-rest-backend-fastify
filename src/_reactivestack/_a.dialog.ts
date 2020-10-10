@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-'use strict';
+"use strict";
 
-import * as _ from 'lodash';
+import * as _ from "lodash";
 import {Subject, Subscription} from "rxjs";
 import AStore from "./store/_a.store";
 // import * as jsondiffpatch from "jsondiffpatch";
@@ -39,7 +39,7 @@ export default abstract class ADialog extends Subject<any> {
 
 	public async consume(message: any): Promise<any> {
 		switch (message.type) {
-			case 'config':
+			case "config":
 				const {config} = message;
 				this.config = config;
 				return;

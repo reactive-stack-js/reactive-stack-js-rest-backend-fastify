@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-'use strict';
+"use strict";
 
-import * as mongoose from 'mongoose';
-import {Connection} from 'mongoose';
+import * as mongoose from "mongoose";
+import {Connection} from "mongoose";
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
@@ -27,7 +27,7 @@ export default class MongoDBConnector {
 			.catch(console.error);
 
 		this._connection = mongoose.connection;
-		this._connection.on('error', console.error.bind(console, 'connection error:'));
-		this._connection.once('open', () => console.log('MongoDB connected to', MONGODB_URI));
+		this._connection.on("error", console.error.bind(console, "connection error:"));
+		this._connection.once("open", () => console.log("MongoDB connected to", MONGODB_URI));
 	}
 }

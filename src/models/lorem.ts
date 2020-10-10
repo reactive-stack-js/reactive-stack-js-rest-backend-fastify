@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-'use strict';
+"use strict";
 
-import {model, Schema} from 'mongoose';
+import {model, Schema} from "mongoose";
 import SyncModelBaseAttributes from "../_reactivestack/_i.model.base";
 import CollectionsModelsMap from "../util/collections.models.map";
 
@@ -21,7 +21,7 @@ const LoremSchema = new Schema(
 		versionKey: false,
 	},
 );
-const Lorem = model('Lorem', LoremSchema, 'lorems');
+const Lorem = model("Lorem", LoremSchema, "lorems");
 CollectionsModelsMap.addCollectionToModelMapping(Lorem);
 
 export default Lorem;
