@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-'use strict';
+"use strict";
 
-import * as _ from 'lodash';
+import * as _ from "lodash";
 import * as dotenv from "dotenv";
 
-import Lorem from '../../models/lorem';
+import Lorem from "../../models/lorem";
 import routeFactory from "../../_reactivestack/_f.route.factory";
 
 dotenv.config();
@@ -13,7 +13,7 @@ const jwtSecret = process.env.JWT_SECRET;
 const _validate = (request, reply, done) => {
 	// IMPODTANT: do NOT use plain done() without params in POST - it doubles the call for some reason...
 
-	// console.log('_validate user:', request.user.id, request.user.name);
+	// console.log("_validate user:", request.user.id, request.user.name);
 	// TODO: verify permissions
 	// if fail use: done(..something..); to break process and return ..something..
 	done();
@@ -21,11 +21,11 @@ const _validate = (request, reply, done) => {
 
 module.exports = [
 
-	...routeFactory(Lorem, 'lorem', _validate),
+	...routeFactory(Lorem, "lorem", _validate),
 
 	{
-		method: 'POST',
-		url: '/api/lorem/save/',
+		method: "POST",
+		url: "/api/lorem/save/",
 		preValidation: _validate,
 		handler: async (request, reply) => {
 			const lorem: any = request.body.document;
