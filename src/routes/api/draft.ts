@@ -140,7 +140,7 @@ module.exports = [
 
 	{
 		method: "POST",
-		url: "/api/lorem/save/",
+		url: "/api/draft/save/",
 		preValidation: _validate,
 		handler: async (request, reply) => {
 			const {user, params: {draftId}} = request;
