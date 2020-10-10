@@ -19,6 +19,7 @@ dotenv.config({path: ".env.local"});
 import websocket from "./_reactivestack/_f.websocket";
 import addRoutes from "./util/_f.add.routes";
 import MongoDBConnector from "./mongodb.connector";
+import processModels from "./_reactivestack/_f.process.models";
 
 // const fastify = Fastify({logger: false});
 const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({logger: false})
@@ -52,6 +53,8 @@ const addWebSocketListener = (srv) => srv.get("/ws", {websocket: true}, websocke
 // Run the server!
 const startFastifyServer = async () => {
 	try {
+		processModels(path.join(__dirname, "models"));
+
 		MongoDBConnector.init();
 
 		addJWTHook(server);

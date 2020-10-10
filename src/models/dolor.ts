@@ -2,7 +2,6 @@
 "use strict";
 
 import {model, Schema} from "mongoose";
-import CollectionsModelsMap from "../_reactivestack/collections.models.map";
 
 const DolorSchema = new Schema(
 	{
@@ -23,7 +22,4 @@ const DolorSchema = new Schema(
 		versionKey: false,
 	},
 );
-const Dolor = model("Dolor", DolorSchema, "dolors");
-CollectionsModelsMap.addCollectionToModelMapping(Dolor);
-
-export default Dolor;
+export default model("Dolor", DolorSchema, "dolors");

@@ -3,7 +3,6 @@
 
 import {model, Schema} from "mongoose";
 import uuidv4 from "../util/_f.unique.id";
-import CollectionsModelsMap from "../_reactivestack/collections.models.map";
 
 const DraftSchema = new Schema(
 	{
@@ -19,7 +18,4 @@ const DraftSchema = new Schema(
 		versionKey: false,
 	},
 );
-const Draft = model("Draft", DraftSchema, "drafts");
-CollectionsModelsMap.addCollectionToModelMapping(Draft);
-
-export default Draft;
+export default model("Draft", DraftSchema, "drafts");

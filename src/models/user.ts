@@ -2,7 +2,6 @@
 "use strict";
 
 import {model, Schema} from "mongoose";
-import CollectionsModelsMap from "../_reactivestack/collections.models.map";
 
 const UserSchema = new Schema(
 	{
@@ -17,8 +16,4 @@ const UserSchema = new Schema(
 		versionKey: false,
 	},
 );
-
-const User = model("User", UserSchema);
-CollectionsModelsMap.addCollectionToModelMapping(User);
-
-export default User
+export default model("User", UserSchema);

@@ -2,7 +2,6 @@
 "use strict";
 
 import {model, Schema} from "mongoose";
-import CollectionsModelsMap from "../_reactivestack/collections.models.map";
 
 const ConsecteturSchema = new Schema(
 	{
@@ -19,7 +18,4 @@ const ConsecteturSchema = new Schema(
 		versionKey: false,
 	},
 );
-const Consectetur = model("Consectetur", ConsecteturSchema, "consecteturs");
-CollectionsModelsMap.addCollectionToModelMapping(Consectetur);
-
-export default Consectetur;
+export default model("Consectetur", ConsecteturSchema, "consecteturs");

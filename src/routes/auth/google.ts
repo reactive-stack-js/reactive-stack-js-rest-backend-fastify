@@ -8,7 +8,7 @@ import authenticate from "../../util/_f.authenticate";
 const GG_APP_ID = process.env.GG_APP_ID;
 const GG_APP_SECRET = process.env.GG_APP_SECRET;
 
-const _userAccessToken = async (code, scope, redirectUri) => {
+const _userAccessToken = async (code, scope, redirectUri): Promise<any> => {
 	const ggurl = `https://oauth2.googleapis.com/token` +
 		`?client_id=${GG_APP_ID}` +
 		`&client_secret=${GG_APP_SECRET}` +
@@ -22,7 +22,7 @@ const _userAccessToken = async (code, scope, redirectUri) => {
 	return null;
 };
 
-const _userData = async (accessToken) => {
+const _userData = async (accessToken): Promise<any> => {
 	const ggurl = `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${accessToken}`;
 	const response = await axios.get(ggurl);
 	const {data} = response;
@@ -39,7 +39,7 @@ const _userData = async (accessToken) => {
 module.exports = {
 	method: "POST",
 	url: "/auth/google",
-	handler: async (request, reply) => {
+	handler: async (request: any, reply: any): Promise<void> => {
 		const {code, scope, redirect_uri} = request.body;
 		const {access_token} = await _userAccessToken(code, scope, redirect_uri);
 		if (access_token) {

@@ -9,25 +9,24 @@ import AStore, {EStoreType} from "./_a.store";
 import observableModel from "../_f.observable.model";
 
 // tslint:disable-next-line:variable-name
-const __getIdFromQuery = (query: any) => _.isString(query) ? query : _.get(query, "_id");
+const __getIdFromQuery = (query: any): string => _.isString(query) ? query : _.get(query, "_id");
 
 export default class DocumentStore extends AStore {
 
 	constructor(model: any, field: string) {
 		super(model, field);
 		this._type = EStoreType.DOCUMENT;
-
 		Object.setPrototypeOf(this, DocumentStore.prototype);
 	}
 
-	protected extractFromConfig() {
+	protected extractFromConfig(): void {
 		super.extractFromConfig();
 
 		const {skip = 0} = this._config;
 		this._paging = skip ? {} : {skip, limit: 1};
 	}
 
-	protected restartSubscription() {
+	protected restartSubscription(): void {
 		this.subscription = observableModel(this.model)
 			.pipe(filter((change) => this._pipeFilter(change)))
 			.subscribe({
@@ -35,7 +34,7 @@ export default class DocumentStore extends AStore {
 			});
 	}
 
-	protected async load(change: any) {
+	protected async load(change: any): Promise<void> {
 		if (_.isEmpty(this._config)) return this.emit();
 
 		const document = change.fullDocument;
@@ -49,7 +48,7 @@ export default class DocumentStore extends AStore {
 		this.emit(data);
 	}
 
-	private _pipeFilter(change): boolean {
+	private _pipeFilter(change: any): boolean {
 		const document = change.fullDocument;
 
 		// TODO: handle deletions?
@@ -73,11 +72,11 @@ export default class DocumentStore extends AStore {
 		return true;
 	}
 
-	private async _loadDocumentById(id) {
+	private async _loadDocumentById(id: string): Promise<any> {
 		return await this._model.findById(id, this._fields);
 	}
 
-	private async _loadSortedFirstDocument() {
+	private async _loadSortedFirstDocument(): Promise<any> {
 		return _.first(
 			await this._model
 				.find(this._query, this._fields, this._paging)
@@ -85,7 +84,7 @@ export default class DocumentStore extends AStore {
 		);
 	}
 
-	private async _loadDocument() {
+	private async _loadDocument(): Promise<any> {
 		return await this._model.findOne(this._query, this._fields);
 	}
 

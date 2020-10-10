@@ -2,18 +2,14 @@
 "use strict";
 
 import * as _ from "lodash";
-import * as dotenv from "dotenv";
 
 import {Model, Types} from "mongoose";
 import Draft from "../../models/draft";
 import CollectionsModelsMap from "../../_reactivestack/collections.models.map";
 
-dotenv.config();
-const jwtSecret = process.env.JWT_SECRET;
-
 const _hasItemId = (model: Model<any>): boolean => _.includes(_.keys(model.schema.paths), "itemId");
 
-const _validate = (request, reply, done) => {
+const _validate = (request: any, reply: any, done: Function): void => {
 	// IMPODTANT: do NOT use plain done() without params in POST - it doubles the call for some reason...
 
 	// console.log("_validate user:", request.user.id, request.user.name);
@@ -27,7 +23,7 @@ module.exports = [
 		method: "POST",
 		url: "/api/draft/focus/:draftId",
 		preValidation: _validate,
-		handler: async (request, reply) => {
+		handler: async (request: any, reply: any): Promise<void> => {
 			const {user, params: {draftId}, body: {field}} = request;
 			const userId = user.id;
 
@@ -51,7 +47,7 @@ module.exports = [
 		method: "POST",
 		url: "/api/draft/blur/:draftId",
 		preValidation: _validate,
-		handler: async (request, reply) => {
+		handler: async (request: any, reply: any): Promise<void> => {
 			const {user, params: {draftId}, body: {field}} = request;
 			const userId = user.id;
 
@@ -63,7 +59,7 @@ module.exports = [
 				const curr = _.get(meta, field);
 				if (curr) {
 					const focusedBy = _.get(curr, "user");
-					if (focusedBy !== userId) return false;
+					if (focusedBy !== userId) reply.send(false);
 					const metaData = _.omit(meta, field);
 					await Draft.updateOne({_id: draftId}, {$set: {meta: metaData}});
 				}
@@ -77,7 +73,7 @@ module.exports = [
 		method: "POST",
 		url: "/api/draft/change/:draftId",
 		preValidation: _validate,
-		handler: async (request, reply) => {
+		handler: async (request: any, reply: any): Promise<void> => {
 			const {user, params: {draftId}, body: {field, value}} = request;
 			const userId = user.id;
 
@@ -100,7 +96,7 @@ module.exports = [
 		method: "POST",
 		url: "/api/draft/cancel/:draftId",
 		preValidation: _validate,
-		handler: async (request, reply) => {
+		handler: async (request: any, reply: any): Promise<void> => {
 			const {params: {draftId}} = request;
 			await Draft.deleteOne({_id: draftId});
 			reply.send(true);
@@ -111,7 +107,7 @@ module.exports = [
 		method: "GET",
 		url: "/api/draft/create/:id",
 		preValidation: _validate,
-		handler: async (request, reply) => {
+		handler: async (request: any, reply: any): Promise<void> => {
 			const {user, params: {collectionName, sourceDocumentId}} = request;
 			const userId = user.id;
 
@@ -142,7 +138,7 @@ module.exports = [
 		method: "POST",
 		url: "/api/draft/save/",
 		preValidation: _validate,
-		handler: async (request, reply) => {
+		handler: async (request: any, reply: any): Promise<void> => {
 			const {user, params: {draftId}} = request;
 			const userId = user.id;
 

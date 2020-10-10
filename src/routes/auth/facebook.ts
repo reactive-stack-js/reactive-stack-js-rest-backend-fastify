@@ -50,7 +50,7 @@ const _userData = async (id, accessToken) => {
 module.exports = {
 	method: "POST",
 	url: "/auth/facebook",
-	handler: async (request, reply) => {
+	handler: async (request, reply): Promise<void> => {
 		await _appAccessToken();
 		const {code, redirect_uri} = request.body;
 

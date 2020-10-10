@@ -2,7 +2,6 @@
 "use strict";
 
 import {model, Schema} from "mongoose";
-import CollectionsModelsMap from "../_reactivestack/collections.models.map";
 
 const IpsumSchema = new Schema(
 	{
@@ -19,7 +18,4 @@ const IpsumSchema = new Schema(
 		versionKey: false,
 	},
 );
-const Ipsum = model("Ipsum", IpsumSchema, "ipsums");
-CollectionsModelsMap.addCollectionToModelMapping(Ipsum);
-
-export default Ipsum;
+export default model("Ipsum", IpsumSchema, "ipsums");

@@ -3,7 +3,6 @@
 
 import {model, Schema} from "mongoose";
 import SyncModelBaseAttributes from "../_reactivestack/_i.model.base";
-import CollectionsModelsMap from "../_reactivestack/collections.models.map";
 
 const LoremSchema = new Schema(
 	{
@@ -21,7 +20,4 @@ const LoremSchema = new Schema(
 		versionKey: false,
 	},
 );
-const Lorem = model("Lorem", LoremSchema, "lorems");
-CollectionsModelsMap.addCollectionToModelMapping(Lorem);
-
-export default Lorem;
+export default model("Lorem", LoremSchema, "lorems");
