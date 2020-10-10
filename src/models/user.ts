@@ -2,7 +2,7 @@
 "use strict";
 
 import {model, Schema} from "mongoose";
-import CollectionsModelsMap from "../util/collections.models.map";
+import CollectionsModelsMap from "../_reactivestack/collections.models.map";
 
 const UserSchema = new Schema(
 	{

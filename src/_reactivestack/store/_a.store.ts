@@ -8,7 +8,7 @@ import * as jsondiffpatch from "jsondiffpatch";
 export enum EStoreType { DOCUMENT, COLLECTION}
 
 // tslint:disable-next-line:variable-name
-const _baseMessage = (field) => ({
+const _baseMessage = (field: string) => ({
 	type: "update",
 	path: field,
 	payload: {}
@@ -17,7 +17,7 @@ const _baseMessage = (field) => ({
 export default abstract class AStore extends Subject<any> {
 
 	protected _model: any;
-	protected _field: string;
+	protected _target: string;
 	protected _type: EStoreType;
 
 	protected _config: any;
@@ -29,11 +29,11 @@ export default abstract class AStore extends Subject<any> {
 
 	protected _subscription: Subscription;
 
-	protected constructor(model: any, field: string) {
+	protected constructor(model: any, target: string) {
 		super();
 
 		this._model = model;
-		this._field = field;
+		this._target = target;
 		this._query = {};
 		this._sort = {};
 		this._fields = {};
@@ -47,7 +47,7 @@ export default abstract class AStore extends Subject<any> {
 
 	protected abstract async load(change: any): Promise<any>;
 
-	protected abstract restartSubscription();
+	protected abstract restartSubscription(): void;
 
 	protected extractFromConfig() {
 		const {query = {}, sort = {}, fields = {}} = this._config;
@@ -84,8 +84,8 @@ export default abstract class AStore extends Subject<any> {
 		this.restartSubscription();
 	}
 
-	public get field() {
-		return this._field;
+	public get target() {
+		return this._target;
 	}
 
 	private _isDocument(): boolean {
@@ -103,16 +103,16 @@ export default abstract class AStore extends Subject<any> {
 	}
 
 	private _emitOne(update: any) {
-		const message = _baseMessage(this._field);
-		_.set(message.payload, this._field, update);
+		const message = _baseMessage(this._target);
+		_.set(message.payload, this._target, update);
 		this.next(JSON.stringify(message));
 	}
 
 	private _emitMany(update: any = {total: 0, data: []}) {
 		const {total, data} = update;
-		const message = _baseMessage(this._field);
-		_.set(message.payload, this._field, data);
-		_.set(message.payload, "_" + this._field + "Count", total);
+		const message = _baseMessage(this._target);
+		_.set(message.payload, this._target, data);
+		_.set(message.payload, "_" + this._target + "Count", total);
 		this.next(JSON.stringify(message));
 	}
 
