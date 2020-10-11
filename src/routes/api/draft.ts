@@ -86,26 +86,15 @@ module.exports = [
 					updatedAt: new Date(),
 					document
 				};
-				return reply.send(Draft.updateOne({_id: draftId}, {$set: updater}));
+				return reply.send(await Draft.updateOne({_id: draftId}, {$set: updater}));
 			}
 			reply.send({draftId, change: {field, value}, userId, error: "Draft does not exist!"});
 		},
 	},
 
 	{
-		method: "POST",
-		url: "/api/draft/cancel/:draftId",
-		preValidation: _validate,
-		handler: async (request: any, reply: any): Promise<void> => {
-			const {params: {draftId}} = request;
-			await Draft.deleteOne({_id: draftId});
-			reply.send(true);
-		},
-	},
-
-	{
 		method: "GET",
-		url: "/api/draft/create/:id",
+		url: "/api/draft/create/:collectionName/:sourceDocumentId",
 		preValidation: _validate,
 		handler: async (request: any, reply: any): Promise<void> => {
 			const {user, params: {collectionName, sourceDocumentId}} = request;
@@ -135,8 +124,19 @@ module.exports = [
 	},
 
 	{
-		method: "POST",
-		url: "/api/draft/save/",
+		method: "GET",
+		url: "/api/draft/cancel/:draftId",
+		preValidation: _validate,
+		handler: async (request: any, reply: any): Promise<void> => {
+			const {params: {draftId}} = request;
+			await Draft.deleteOne({_id: draftId});
+			reply.send(true);
+		},
+	},
+
+	{
+		method: "GET",
+		url: "/api/draft/save/:draftId",
 		preValidation: _validate,
 		handler: async (request: any, reply: any): Promise<void> => {
 			const {user, params: {draftId}} = request;
