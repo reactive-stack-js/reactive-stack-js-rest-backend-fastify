@@ -13,7 +13,7 @@ const _validate = (request: any, reply: any, done: Function): void => {
 	// IMPODTANT: do NOT use plain done() without params in POST - it doubles the call for some reason...
 
 	// console.log("_validate user:", request.user.id, request.user.name);
-	// TODO: verify permissions
+	// verify permissions
 	// if fail use: done(..something..); to break process and return ..something..
 	done();
 };
