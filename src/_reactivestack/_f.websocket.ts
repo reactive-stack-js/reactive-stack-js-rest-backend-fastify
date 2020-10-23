@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 "use strict";
+
 import {SocketStream} from "fastify-websocket";
 
 import Client from "./client";
-import uuidv4 from "../util/_f.unique.id";
+import uuidv4 from "./util/_f.unique.id";
 
 export default (connection: SocketStream): void => {
 	const {socket} = connection;
@@ -28,9 +29,9 @@ export default (connection: SocketStream): void => {
 
 	socket.on("close", () => {
 		console.log("[WS] Client disconnected", mySocketID);
-		subscription.unsubscribe();
+		if (subscription) subscription.unsubscribe();
 		subscription = null;
-		client.destroy();
+		if (client) client.destroy();
 		client = null;
 	});
 

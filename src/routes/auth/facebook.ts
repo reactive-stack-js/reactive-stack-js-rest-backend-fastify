@@ -3,13 +3,13 @@
 
 import axios from "axios";
 
-import authenticate from "../../util/_f.authenticate";
+import authenticate from "../../_reactivestack/_f.authenticate";
 
 const FB_APP_ID = process.env.FB_APP_ID;
 const FB_APP_SECRET = process.env.FB_APP_SECRET;
 
-let _fbAppAccessToken;
-const _appAccessToken = async () => {
+let _fbAppAccessToken: string;
+const _appAccessToken = async (): Promise<string> => {
 	if (!_fbAppAccessToken) {
 		const fburl = `https://graph.facebook.com/oauth/access_token?client_id=${FB_APP_ID}&client_secret=${FB_APP_SECRET}&grant_type=client_credentials`;
 		const response = await axios.get(fburl);
@@ -18,7 +18,7 @@ const _appAccessToken = async () => {
 	return _fbAppAccessToken;
 };
 
-const _userAccessToken = async (code, redirectUri) => {
+const _userAccessToken = async (code: string, redirectUri: string): Promise<any> => {
 	const fburl = `https://graph.facebook.com/v5.0/oauth/access_token?client_id=${FB_APP_ID}&client_secret=${FB_APP_SECRET}&redirect_uri=${redirectUri}&code=${code}`;
 	const response = await axios.get(fburl);
 
@@ -27,13 +27,13 @@ const _userAccessToken = async (code, redirectUri) => {
 	return null;
 };
 
-const _providerId = async (accessToken) => {
+const _providerId = async (accessToken: string): Promise<any> => {
 	const fburl = `https://graph.facebook.com/debug_token?input_token=${accessToken}&access_token=${_fbAppAccessToken}`;
 	const response = await axios.get(fburl);
 	return response.data.data;
 };
 
-const _userData = async (id, accessToken) => {
+const _userData = async (id: string, accessToken: string): Promise<any> => {
 	const fburl = `https://graph.facebook.com/${id}?fields=email,name,picture,friends&access_token=${accessToken}`;
 	const response = await axios.get(fburl);
 	const {data} = response;
@@ -50,7 +50,7 @@ const _userData = async (id, accessToken) => {
 module.exports = {
 	method: "POST",
 	url: "/auth/facebook",
-	handler: async (request, reply): Promise<void> => {
+	handler: async (request: any, reply: any): Promise<void> => {
 		await _appAccessToken();
 		const {code, redirect_uri} = request.body;
 

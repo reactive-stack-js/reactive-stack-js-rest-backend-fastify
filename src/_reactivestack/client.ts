@@ -3,16 +3,14 @@
 
 import Timeout = NodeJS.Timeout;
 
-import * as dotenv from "dotenv";
 import * as jsonwebtoken from "jsonwebtoken";
 import {Subject, Subscription} from "rxjs";
 
 import AStore from "./store/_a.store";
 import storeFactory from "./store/_f.store.factory";
-import StoreSubscriptionUpdateType from "./store/_t.store.subscription.update";
-import jwtTokenRefresh from "../util/_f.jwt.token.refresh";
+import {StoreSubscriptionUpdateType} from "./store/_t.store";
+import jwtTokenRefresh from "./util/_f.jwt.token.refresh";
 
-dotenv.config({path: ".env.local"});
 const jwtSecret = process.env.JWT_SECRET;
 
 export default class Client extends Subject<any> {
@@ -89,12 +87,12 @@ export default class Client extends Subject<any> {
 
 	private removeSubscription(target: string): void {
 		let store = this._stores.get(target);
-		store.destroy();
+		if (store) store.destroy();
 		store = null;
 		this._stores.delete(target);
 
 		let subscription = this._subscriptions.get(target);
-		subscription.unsubscribe();
+		if (subscription) subscription.unsubscribe();
 		subscription = null;
 		this._subscriptions.delete(target);
 	}

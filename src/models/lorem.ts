@@ -2,11 +2,13 @@
 "use strict";
 
 import {model, Schema} from "mongoose";
-import SyncModelBaseAttributes from "../_reactivestack/_i.model.base";
+import uuidv4 from "../_reactivestack/util/_f.unique.id";
 
 const LoremSchema = new Schema(
 	{
-		...SyncModelBaseAttributes,
+		itemId: {type: String, required: true, default: uuidv4()},
+		iteration: {type: Number, required: true},
+		isLatest: {type: Boolean, required: true},
 		firstname: {type: String, required: true, index: true},
 		lastname: {type: String, required: true, index: true},
 		username: {type: String, required: true, index: true},
@@ -14,6 +16,8 @@ const LoremSchema = new Schema(
 		species: {type: String, required: true},
 		rating: {type: Number, required: true},
 		description: {type: String, required: true},
+		createdBy: {type: String, required: false},
+		updatedBy: {type: String, required: false},
 	},
 	{
 		timestamps: true,

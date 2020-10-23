@@ -2,7 +2,7 @@
 "use strict";
 
 import {model, Schema} from "mongoose";
-import uuidv4 from "../util/_f.unique.id";
+import uuidv4 from "../_reactivestack/util/_f.unique.id";
 
 const DraftSchema = new Schema(
 	{

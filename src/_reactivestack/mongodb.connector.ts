@@ -4,7 +4,7 @@
 import * as mongoose from "mongoose";
 import {Connection} from "mongoose";
 
-const MONGODB_URI = process.env.MONGODB_URI;
+const MONGODB_URI: string = process.env.MONGODB_URI || "";
 
 export default class MongoDBConnector {
 
@@ -20,6 +20,7 @@ export default class MongoDBConnector {
 		mongoose
 			.connect(MONGODB_URI, {
 				poolSize: 10,
+				useCreateIndex: true,
 				useNewUrlParser: true,
 				useUnifiedTopology: true,
 			})

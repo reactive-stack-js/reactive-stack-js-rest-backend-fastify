@@ -6,6 +6,10 @@ import {Server, IncomingMessage, ServerResponse} from "http"
 import * as path from "path";
 import * as dotenv from "dotenv";
 
+dotenv.config({path: ".env.local"});
+// IMPORTANT: must execute dotenv before importing anything
+// that depends on process.env (like MongoDBConnector, for example)
+
 import {fastify, FastifyInstance} from "fastify";
 import fastifyCors from "fastify-cors";
 import fastifyBlipp from "fastify-blipp";
@@ -13,12 +17,9 @@ import fastifyHelmet from "fastify-helmet";
 import * as fastifyJwt from "fastify-jwt";
 import * as fastifyWebsocket from "fastify-websocket";
 
-// must execute dotenv before importing anything that depends on process.env (like MongoDBConnector, for example)
-dotenv.config({path: ".env.local"});
-
 import websocket from "./_reactivestack/_f.websocket";
-import addRoutes from "./util/_f.add.routes";
-import MongoDBConnector from "./mongodb.connector";
+import addRoutes from "./_reactivestack/util/_f.add.routes";
+import MongoDBConnector from "./_reactivestack/mongodb.connector";
 import processModels from "./_reactivestack/_f.process.models";
 
 // const fastify = Fastify({logger: false});
