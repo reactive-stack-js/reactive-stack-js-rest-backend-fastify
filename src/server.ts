@@ -11,7 +11,7 @@ dotenv.config({path: '.env.local'});
 // IMPORTANT: must execute dotenv before importing anything
 // that depends on process.env (like MongoDBConnector, for example)
 
-import {ContextConfigDefault, fastify, FastifyInstance, FastifyReply, FastifyRequest} from 'fastify';
+import { fastify, FastifyInstance, FastifyRequest} from 'fastify';
 import {RouteGenericInterface} from 'fastify/types/route';
 
 import * as fastifyJwt from 'fastify-jwt';
@@ -39,14 +39,10 @@ server.register(fastifyCors, {
 const _addJWTHook = (srv: FastifyInstance<Server, IncomingMessage, ServerResponse>): void => {
 	srv.addHook(
 		'onRequest',
-		async (
-			request: FastifyRequest<RouteGenericInterface, Server, IncomingMessage>,
-			reply: FastifyReply<Server, IncomingMessage, ServerResponse, RouteGenericInterface, ContextConfigDefault>
-		) => {
+		async (request: FastifyRequest<RouteGenericInterface, Server, IncomingMessage>) => {
 			try {
 				await request.jwtVerify();
 			} catch (err) {
-				// reply.send(err);
 			}
 		}
 	);
