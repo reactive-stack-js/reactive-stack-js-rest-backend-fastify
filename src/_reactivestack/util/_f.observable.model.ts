@@ -46,7 +46,3 @@ class ObservableModelsMap {
 
 const observableModel = (model: any): ObservableModel => ObservableModelsMap.get(model);
 export default observableModel;
-
-// @TODO nice2have: stop stream when no subscribers / restart stream on subscribe... not MVP:
-// this._stream.close();
-// observableModels.delete(id);
