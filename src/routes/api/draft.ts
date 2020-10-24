@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 'use strict';
 
-import * as _ from 'lodash';
+import {each, first, get, includes, keys, omit, set} from 'lodash';
 
 import {Model, Types} from 'mongoose';
 import Draft from '../../models/draft';
 import CollectionsModelsMap from '../../_reactivestack/util/collections.models.map';
 
-const _hasItemId = (model: Model<any>): boolean => _.includes(_.keys(model.schema.paths), 'itemId');
+const _hasItemId = (model: Model<any>): boolean => includes(keys(model.schema.paths), 'itemId');
 
 const _validate = (request: any, reply: any, done: Function): void => {
 	// IMPODTANT: do NOT use plain done() without params in POST - it doubles the call for some reason...
@@ -34,13 +34,13 @@ module.exports = [
 			const draft = await Draft.findOne({_id: draftId});
 			if (!draft) throw new Error(`Draft does not exist: ${draftId}`);
 
-			let meta = _.get(draft, 'meta', {});
-			if (_.get(meta, field)) return reply.send(false);
+			let meta = get(draft, 'meta', {});
+			if (get(meta, field)) return reply.send(false);
 
-			_.each(meta, (val, id) => {
-				if (_.get(val, 'user', false) === userId) meta = _.omit(meta, id);
+			each(meta, (val, id) => {
+				if (get(val, 'user', false) === userId) meta = omit(meta, id);
 			});
-			_.set(meta, field, {user: userId});
+			set(meta, field, {user: userId});
 			await Draft.updateOne({_id: draftId}, {$set: {meta}});
 
 			reply.send(true);
@@ -62,13 +62,13 @@ module.exports = [
 			const draft: any = await Draft.findOne({_id: draftId});
 			if (!draft) throw new Error(`Draft does not exist: ${draftId}`);
 
-			const meta = _.get(draft, 'meta', null);
+			const meta = get(draft, 'meta', null);
 			if (meta) {
-				const curr = _.get(meta, field);
+				const curr = get(meta, field);
 				if (curr) {
-					const focusedBy = _.get(curr, 'user');
+					const focusedBy = get(curr, 'user');
 					if (focusedBy !== userId) reply.send(false);
-					const metaData = _.omit(meta, field);
+					const metaData = omit(meta, field);
 					await Draft.updateOne({_id: draftId}, {$set: {meta: metaData}});
 				}
 			}
@@ -92,7 +92,7 @@ module.exports = [
 			const draft: any = await Draft.findOne({_id: draftId});
 			if (draft) {
 				let {document} = draft;
-				document = _.set(document, field, value);
+				document = set(document, field, value);
 				const updater = {
 					updatedBy: userId,
 					updatedAt: new Date(),
@@ -128,7 +128,7 @@ module.exports = [
 			if (!existing) {
 				const draft: any = {_id: Types.ObjectId(), collectionName, sourceDocumentId};
 				if (hasItemId) draft.sourceDocumentItemId = document.itemId;
-				draft.document = _.omit(document, ['_id', 'updatedAt', 'updatedBy']);
+				draft.document = omit(document, ['_id', 'updatedAt', 'updatedBy']);
 				draft.meta = {};
 				draft.createdBy = userId;
 				existing = await Draft.create(draft);
@@ -168,10 +168,10 @@ module.exports = [
 			const model = CollectionsModelsMap.getModelByCollection(collectionName);
 			if (!model) throw new Error(`Model not found for collectionName ${collectionName}`);
 
-			const document = _.omit(draft.document, ['_id', 'createdAt']);
+			const document = omit(draft.document, ['_id', 'createdAt']);
 
 			let max: any = await model.find({itemId: document.itemId}).sort({iteration: -1}).limit(1);
-			max = _.first(max);
+			max = first(max);
 			await model.updateOne({_id: max._id}, {$set: {isLatest: false}});
 
 			document.isLatest = true;
