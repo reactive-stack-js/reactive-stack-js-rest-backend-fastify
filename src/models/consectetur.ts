@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-"use strict";
+'use strict';
 
-import {model, Schema} from "mongoose";
+import {model, Schema} from 'mongoose';
 
 const ConsecteturSchema = new Schema(
 	{
@@ -10,12 +10,12 @@ const ConsecteturSchema = new Schema(
 		voluptatem: {type: Object},
 		dolorIds: {
 			type: [Schema.Types.ObjectId],
-			ref: "Dolor"
+			ref: 'Dolor'
 		}
 	},
 	{
 		timestamps: true,
-		versionKey: false,
-	},
+		versionKey: false
+	}
 );
-export default model("Consectetur", ConsecteturSchema, "consecteturs");
+export default model('Consectetur', ConsecteturSchema, 'consecteturs');

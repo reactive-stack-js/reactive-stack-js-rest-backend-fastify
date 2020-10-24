@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-"use strict";
+'use strict';
 
-import {model, Schema} from "mongoose";
+import {model, Schema} from 'mongoose';
 
 const DolorSchema = new Schema(
 	{
@@ -10,16 +10,16 @@ const DolorSchema = new Schema(
 		iste: {type: Object},
 		ipsumId: {
 			type: Schema.Types.ObjectId,
-			ref: "Ipsum"
+			ref: 'Ipsum'
 		},
 		dolorId: {
 			type: Schema.Types.ObjectId,
-			ref: "Dolor"
+			ref: 'Dolor'
 		}
 	},
 	{
 		timestamps: true,
-		versionKey: false,
-	},
+		versionKey: false
+	}
 );
-export default model("Dolor", DolorSchema, "dolors");
+export default model('Dolor', DolorSchema, 'dolors');

@@ -1,12 +1,12 @@
 #!/usr/bin/env node
-"use strict";
+'use strict';
 
-import * as fs from "fs";
-import * as path from "path";
+import * as fs from 'fs';
+import * as path from 'path';
 
-import * as _ from "lodash";
+import * as _ from 'lodash';
 
-import CollectionsModelsMap from "./collections.models.map";
+import CollectionsModelsMap from './collections.models.map';
 
 const _processFile = (folder: string, file: string): void => {
 	const fullPath = path.join(folder, file);
@@ -19,7 +19,7 @@ const processModels = (folder: string): void => {
 	const files = _.filter(fileNames, (fileName) => !fs.lstatSync(path.join(folder, fileName)).isDirectory());
 	files.forEach((file) => {
 		const ext = path.extname(file);
-		if (ext !== ".ts" && ext !== ".js") return;
+		if (ext !== '.ts' && ext !== '.js') return;
 		_processFile(folder, file);
 	});
 

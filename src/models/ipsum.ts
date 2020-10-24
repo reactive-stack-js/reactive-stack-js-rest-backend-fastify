@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-"use strict";
+'use strict';
 
-import {model, Schema} from "mongoose";
+import {model, Schema} from 'mongoose';
 
 const IpsumSchema = new Schema(
 	{
@@ -10,12 +10,12 @@ const IpsumSchema = new Schema(
 		perspiciatis: {type: Object},
 		loremId: {
 			type: Schema.Types.ObjectId,
-			ref: "Lorem"
+			ref: 'Lorem'
 		}
 	},
 	{
 		timestamps: true,
-		versionKey: false,
-	},
+		versionKey: false
+	}
 );
-export default model("Ipsum", IpsumSchema, "ipsums");
+export default model('Ipsum', IpsumSchema, 'ipsums');

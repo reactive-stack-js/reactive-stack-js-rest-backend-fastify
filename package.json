@@ -13,7 +13,7 @@
 		"build": "tsc -p tsconfig.json",
 		"lint": "tslint -p tsconfig.json",
 		"clean": "tslint --config tslint-imports.json --fix --project .",
-		"format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+		"format": "prettier --write \"src/**/*.ts\"",
 		"last": "yarn upgrade-interactive --latest",
 		"up": "yarn upgrade-interactive",
 		"print": "dir src /s /b > print.txt"

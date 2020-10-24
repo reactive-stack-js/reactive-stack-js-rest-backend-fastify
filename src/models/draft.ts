@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-"use strict";
+'use strict';
 
-import {v4} from "uuid";
-import {model, Schema} from "mongoose";
+import {v4} from 'uuid';
+import {model, Schema} from 'mongoose';
 
 const DraftSchema = new Schema(
 	{
@@ -15,7 +15,7 @@ const DraftSchema = new Schema(
 	},
 	{
 		timestamps: true,
-		versionKey: false,
-	},
+		versionKey: false
+	}
 );
-export default model("Draft", DraftSchema, "drafts");
+export default model('Draft', DraftSchema, 'drafts');

@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-"use strict";
+'use strict';
 
-import {v4} from "uuid";
-import {model, Schema} from "mongoose";
+import {v4} from 'uuid';
+import {model, Schema} from 'mongoose';
 
 const LoremSchema = new Schema(
 	{
@@ -17,11 +17,11 @@ const LoremSchema = new Schema(
 		rating: {type: Number, required: true},
 		description: {type: String, required: true},
 		createdBy: {type: String, required: false},
-		updatedBy: {type: String, required: false},
+		updatedBy: {type: String, required: false}
 	},
 	{
 		timestamps: true,
-		versionKey: false,
-	},
+		versionKey: false
+	}
 );
-export default model("Lorem", LoremSchema, "lorems");
+export default model('Lorem', LoremSchema, 'lorems');
