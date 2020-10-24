@@ -10,9 +10,12 @@
 		"sourceMap": true,
 		"declaration": true,
 		"rootDir": "./src",
-		"outDir": "./dist"
-		//		"noImplicitAny": true,
-		//		"strict": true
+		"outDir": "./dist",
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"noImplicitAny": true,
+		"strict": true,
+		"strictNullChecks": false
 	},
 	"include": [
 		"./src/**/*"

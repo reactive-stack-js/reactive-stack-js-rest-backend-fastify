@@ -5,7 +5,7 @@ import * as _ from "lodash";
 
 import {Model, Types} from "mongoose";
 import Draft from "../../models/draft";
-import CollectionsModelsMap from "../../_reactivestack/collections.models.map";
+import CollectionsModelsMap from "../../_reactivestack/util/collections.models.map";
 
 const _hasItemId = (model: Model<any>): boolean => _.includes(_.keys(model.schema.paths), "itemId");
 
@@ -21,7 +21,7 @@ const _validate = (request: any, reply: any, done: Function): void => {
 module.exports = [
 	{
 		method: "POST",
-		url: "/api/draft/focus/:draftId",
+		url: "focus/:draftId",
 		preValidation: _validate,
 		handler: async (request: any, reply: any): Promise<void> => {
 			const {user, params: {draftId}, body: {field}} = request;
@@ -45,7 +45,7 @@ module.exports = [
 
 	{
 		method: "POST",
-		url: "/api/draft/blur/:draftId",
+		url: "blur/:draftId",
 		preValidation: _validate,
 		handler: async (request: any, reply: any): Promise<void> => {
 			const {user, params: {draftId}, body: {field}} = request;
@@ -71,7 +71,7 @@ module.exports = [
 
 	{
 		method: "POST",
-		url: "/api/draft/change/:draftId",
+		url: "change/:draftId",
 		preValidation: _validate,
 		handler: async (request: any, reply: any): Promise<void> => {
 			const {user, params: {draftId}, body: {field, value}} = request;
@@ -94,7 +94,7 @@ module.exports = [
 
 	{
 		method: "GET",
-		url: "/api/draft/create/:collectionName/:sourceDocumentId",
+		url: "create/:collectionName/:sourceDocumentId",
 		preValidation: _validate,
 		handler: async (request: any, reply: any): Promise<void> => {
 			const {user, params: {collectionName, sourceDocumentId}} = request;
@@ -125,7 +125,7 @@ module.exports = [
 
 	{
 		method: "GET",
-		url: "/api/draft/cancel/:draftId",
+		url: "cancel/:draftId",
 		preValidation: _validate,
 		handler: async (request: any, reply: any): Promise<void> => {
 			const {params: {draftId}} = request;
@@ -136,7 +136,7 @@ module.exports = [
 
 	{
 		method: "GET",
-		url: "/api/draft/save/:draftId",
+		url: "save/:draftId",
 		preValidation: _validate,
 		handler: async (request: any, reply: any): Promise<void> => {
 			const {user, params: {draftId}} = request;

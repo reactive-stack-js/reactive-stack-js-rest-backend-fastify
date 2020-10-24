@@ -22,7 +22,7 @@ import fastifyHelmet from "fastify-helmet";
 
 import websocket from "./_reactivestack/_f.websocket";
 import addRoutes from "./_reactivestack/util/_f.add.routes";
-import processModels from "./_reactivestack/_f.process.models";
+import processModels from "./_reactivestack/util/_f.process.models";
 import MongoDBConnector from "./_reactivestack/mongodb.connector";
 
 const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({logger: false})
