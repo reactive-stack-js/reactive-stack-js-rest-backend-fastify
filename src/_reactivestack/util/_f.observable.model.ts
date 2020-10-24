@@ -6,8 +6,6 @@ import {Subject} from 'rxjs';
 import {Model} from 'mongoose';
 import {ChangeStream} from 'mongodb';
 
-// TODO: add USER param to be able to CHECK PERMISSIONS in ObservableModelsMap
-
 class ObservableModel extends Subject<any> {
 	private _model: any;
 	private _stream: ChangeStream;
@@ -18,7 +16,6 @@ class ObservableModel extends Subject<any> {
 		this._stream = this._model.watch([], {fullDocument: 'updateLookup'});
 
 		this._stream.on('change', (change) => {
-			// you can also just forward the entire change object: this.next(change);
 			this.next(_.pick(change, ['ns', 'documentKey', 'operationType', 'updateDescription', 'fullDocument']));
 		});
 	}
