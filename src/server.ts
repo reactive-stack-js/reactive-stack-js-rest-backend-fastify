@@ -40,7 +40,9 @@ const _addJWTHook = (srv: FastifyInstance<Server, IncomingMessage, ServerRespons
 	srv.addHook('onRequest', async (request: FastifyRequest<RouteGenericInterface, Server, IncomingMessage>) => {
 		try {
 			await request.jwtVerify();
-		} catch (err) {}
+		} catch (err) {
+			console.error('Not logged in.');
+		}
 	});
 };
 
