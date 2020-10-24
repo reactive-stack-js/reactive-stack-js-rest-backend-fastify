@@ -5,7 +5,10 @@ import {v4} from 'uuid';
 import {isString} from 'lodash';
 import {SocketStream} from 'fastify-websocket';
 
-import Client from './client';
+import Client from './_reactivestack/client';
+import UserManager from './_auth/user.manager';
+
+const jwtSecret = process.env.JWT_SECRET;
 
 export default (connection: SocketStream): void => {
 	const {socket} = connection;
@@ -15,10 +18,10 @@ export default (connection: SocketStream): void => {
 	console.log('[WS] Client connected', mySocketID);
 	socket.send(JSON.stringify({type: 'socketId', socketId: mySocketID}));
 
-	let client = new Client();
+	const userManager = new UserManager(jwtSecret);
+	let client = new Client(userManager);
 	let subscription = client.subscribe({
 		next: (message): void => {
-			console.log('[WS] Client says', {mySocketID, message});
 			if (!isString(message)) message = JSON.stringify(message);
 			socket.send(message);
 		},
