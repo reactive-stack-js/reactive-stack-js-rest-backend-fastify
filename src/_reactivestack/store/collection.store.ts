@@ -15,10 +15,9 @@ export default class CollectionStore extends AStore {
 	}
 
 	protected restartSubscription(): void {
-		this.subscription = observableModel(this.model)
-			.subscribe({
-				next: (c: any): Promise<void> => this.load()
-			});
+		this.subscription = observableModel(this.model).subscribe({
+			next: (c: any): Promise<void> => this.load()
+		});
 	}
 
 	protected async load(): Promise<void> {
