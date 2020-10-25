@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 'use strict';
 
-import {v4} from 'uuid';
+import {v4 as uuidv4} from 'uuid';
 import {model, Schema} from 'mongoose';
 
 const LoremSchema = new Schema(
 	{
-		itemId: {type: String, required: true, default: v4()},
+		itemId: {type: String, required: true, default: uuidv4()},
 		iteration: {type: Number, required: true},
 		isLatest: {type: Boolean, required: true},
 		firstname: {type: String, required: true, index: true},
