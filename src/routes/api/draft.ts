@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
-import {each, first, get, includes, keys, omit, set} from 'lodash';
+import {each, first, get, includes, keys, omit, set, uniq} from 'lodash';
 
 import {Model, Types} from 'mongoose';
 import Draft from '../../models/draft';
@@ -93,10 +93,16 @@ module.exports = [
 			if (draft) {
 				let {document} = draft;
 				document = set(document, field, value);
+
+				let {changes} = draft;
+				changes.push(field);
+				changes = uniq(changes);
+
 				const updater = {
 					updatedBy: userId,
 					updatedAt: new Date(),
-					document
+					document,
+					changes
 				};
 				return reply.send(await Draft.updateOne({_id: draftId}, {$set: updater}));
 			}
