@@ -48,18 +48,18 @@ const addRoutes = (fastify: FastifyInstance<Server, IncomingMessage, ServerRespo
 
 	const fileNames = fs.readdirSync(folder);
 	const files = _.filter(fileNames, (name) => !fs.lstatSync(path.join(folder, name)).isDirectory());
-	files.forEach((file) => {
+	files.forEach((file: string) => {
 		const ext = path.extname(file);
 		if (ext !== '.ts' && ext !== '.js') return;
 		const absoluteFilePath = path.join(folder, file);
 		const relativeFilePath = _getCleanRelativePath(absoluteFilePath, ext);
 
 		const route = require(absoluteFilePath);
-		if (_.isArray(route)) _.each(route, (r) => _addRoute(fastify, r, relativeFilePath));
+		if (_.isArray(route)) _.each(route, (r: any) => _addRoute(fastify, r, relativeFilePath));
 		else _addRoute(fastify, route, relativeFilePath);
 	});
 
-	const folders = _.filter(fileNames, (name) => fs.lstatSync(path.join(folder, name)).isDirectory());
-	folders.forEach((file) => addRoutes(fastify, path.join(folder, file)));
+	const folders = _.filter(fileNames, (name: string) => fs.lstatSync(path.join(folder, name)).isDirectory());
+	folders.forEach((sub: string) => addRoutes(fastify, path.join(folder, sub)));
 };
 export default addRoutes;

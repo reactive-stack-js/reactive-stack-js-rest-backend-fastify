@@ -16,14 +16,14 @@ const _processFile = (folder: string, file: string): void => {
 
 const processModels = (folder: string): void => {
 	const fileNames = fs.readdirSync(folder);
-	const files = filter(fileNames, (fileName) => !fs.lstatSync(path.join(folder, fileName)).isDirectory());
-	files.forEach((file) => {
+	const files = filter(fileNames, (fileName: string) => !fs.lstatSync(path.join(folder, fileName)).isDirectory());
+	files.forEach((file: string) => {
 		const ext = path.extname(file);
 		if (ext !== '.ts' && ext !== '.js') return;
 		_processFile(folder, file);
 	});
 
-	const folders = filter(fileNames, (fileName) => fs.lstatSync(path.join(folder, fileName)).isDirectory());
-	folders.forEach((subfolder) => processModels(subfolder));
+	const folders = filter(fileNames, (fileName: string) => fs.lstatSync(path.join(folder, fileName)).isDirectory());
+	folders.forEach((sub: string) => processModels(path.join(folder, sub)));
 };
 export default processModels;
