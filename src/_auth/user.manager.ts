@@ -11,7 +11,7 @@ export default class UserManager implements IUserManager {
 		this._jwtSecret = jwtSecret;
 	}
 
-	public connected(jwt: any): void {
+	public connected(jwt: string): void {
 		this._jwt = jwt;
 
 		// TODO: verify user exists, and so on...
