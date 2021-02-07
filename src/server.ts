@@ -33,7 +33,16 @@ server.register(fastifyWebsocket);
 server.register(fastifyJwt, {secret: process.env.JWT_SECRET});
 server.register(fastifyCors, {
 	// put your options here
-	origin: ['http://localhost:3003', 'http://localhost:3004', 'http://localhost:3005', 'http://localhost:3006']
+	origin: [
+		'http://localhost:3001',
+		'http://localhost:3002',
+		'http://localhost:3003',
+		'http://localhost:3004',
+		'http://localhost:3005',
+		'http://localhost:3006',
+		'http://localhost:3007',
+		'http://localhost:3008'
+	]
 });
 
 const _addJWTHook = (srv: FastifyInstance<Server, IncomingMessage, ServerResponse>): void => {
