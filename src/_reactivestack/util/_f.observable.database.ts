@@ -8,9 +8,10 @@ import {ChangeStream} from 'mongodb';
 
 // TODO: Available from MongoDB 4.0
 // observableDatabase()
-// 	.subscribe({
-// 		next: (change: any): void => console.log(change)
-// 	});
+// 	.pipe(filter((change) => _.get(change, 'ns.coll') === 'my_collection')
+// 		.subscribe({
+// 			next: (change: any): void => console.log(change)
+// 		});
 
 class ObservableDatabase extends Subject<any> {
 	private _stream: ChangeStream;
