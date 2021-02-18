@@ -12,7 +12,7 @@ const _hasItemId = (model: Model<any>): boolean => includes(keys(model.schema.pa
 const _validate = (request: any, reply: any, done: Function): void => {
 	// IMPODTANT: do NOT use plain done() without params in POST - it doubles the call for some reason...
 
-	// console.log("_validate user:", request.user.id, request.user.name);
+	// console.log("_validate user:", request.user._id, request.user.name);
 	// verify permissions
 	// if fail use: done(..something..); to break process and return ..something..
 	done();
@@ -29,7 +29,7 @@ module.exports = [
 				params: {draftId},
 				body: {field}
 			} = request;
-			const userId = user.id;
+			const userId = user._id;
 
 			const draft = await Draft.findOne({_id: draftId});
 			if (!draft) throw new Error(`Draft does not exist: ${draftId}`);
@@ -57,7 +57,7 @@ module.exports = [
 				params: {draftId},
 				body: {field}
 			} = request;
-			const userId = user.id;
+			const userId = user._id;
 
 			const draft: any = await Draft.findOne({_id: draftId});
 			if (!draft) throw new Error(`Draft does not exist: ${draftId}`);
@@ -87,7 +87,7 @@ module.exports = [
 				params: {draftId},
 				body: {field, value}
 			} = request;
-			const userId = user.id;
+			const userId = user._id;
 
 			const draft: any = await Draft.findOne({_id: draftId});
 			if (draft) {
@@ -119,7 +119,7 @@ module.exports = [
 				user,
 				params: {collectionName, sourceDocumentId}
 			} = request;
-			const userId = user.id;
+			const userId = user._id;
 
 			const model = CollectionsModelsMap.getModelByCollection(collectionName);
 			if (!model) throw new Error(`Model not found for collectionName ${collectionName}`);
@@ -166,7 +166,7 @@ module.exports = [
 				user,
 				params: {draftId}
 			} = request;
-			const userId = user.id;
+			const userId = user._id;
 
 			const draft: any = await Draft.findOne({_id: draftId});
 			const {collectionName} = draft;
