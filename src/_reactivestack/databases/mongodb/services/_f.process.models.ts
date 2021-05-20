@@ -6,7 +6,7 @@ import * as path from 'path';
 
 import {filter} from 'lodash';
 
-import CollectionsModelsMap from './collections.models.map';
+import CollectionsModelsMap from '../collections.models.map';
 
 const _processFile = (folder: string, file: string): void => {
 	const fullPath = path.join(folder, file);

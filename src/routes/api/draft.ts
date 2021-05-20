@@ -5,7 +5,7 @@ import {each, first, get, includes, keys, omit, set, uniq} from 'lodash';
 
 import {Model, Types} from 'mongoose';
 import Draft from '../../models/draft';
-import CollectionsModelsMap from '../../_reactivestack/util/collections.models.map';
+import CollectionsModelsMap from '../../_reactivestack/databases/mongodb/collections.models.map';
 
 const _hasItemId = (model: Model<any>): boolean => includes(keys(model.schema.paths), 'itemId');
 
