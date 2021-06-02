@@ -20,9 +20,9 @@ import fastifyCors from 'fastify-cors';
 import fastifyBlipp from 'fastify-blipp';
 import fastifyHelmet from 'fastify-helmet';
 
-import websocket from './functions/_f.websocket';
-import addRoutes from './_reactivestack/routing/functions/_f.add.routes';
-import processModels from './_reactivestack/databases/mongodb/functions/_f.process.models';
+import websocket from './functions/websocket';
+import addRoutes from './_reactivestack/routing/functions/add.routes';
+import processModels from './_reactivestack/databases/mongodb/functions/process.models';
 import MongoDBConnector from './_reactivestack/databases/mongodb/mongodb.connector';
 
 const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({logger: false});
