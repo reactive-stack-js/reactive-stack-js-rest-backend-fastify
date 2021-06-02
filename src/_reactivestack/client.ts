@@ -10,7 +10,7 @@ import AStore from './store/a.store';
 import storeFactory from './store/factories/_f.store.factory';
 import {StoreSubscriptionUpdateType} from './store/t.store';
 import IUserManager from './auth/i.user.manager';
-import DataMiddlewareMap from "./processing/data.middleware.map";
+import DataMiddlewareMap from "./middleware/data.middleware.map";
 
 export default class Client extends Subject<any> {
 	private _userManager: IUserManager;
@@ -116,8 +116,8 @@ export default class Client extends Subject<any> {
 			this._stores.set(target, store);
 			const subscription = store.subscribe({
 				next: async (m: any): Promise<void> => {
-					if (DataMiddlewareMap.hasProcessor(scope, observe)) {
-						const process = DataMiddlewareMap.getProcessor(scope, observe);
+					if (DataMiddlewareMap.hasMiddleware(scope, observe)) {
+						const process = DataMiddlewareMap.getMiddleware(scope, observe);
 						m = await process(m, this._userManager.user);
 					}
 					this.next(m);
