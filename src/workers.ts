@@ -3,14 +3,11 @@
 
 import * as path from 'path';
 import * as dotenv from 'dotenv';
+import {initiateWorkers, MongoDBConnector, processModels} from 'reactive-stack-js-backend';
 
 // IMPORTANT: must execute dotenv.config before importing anything requires it (like DBConnectors)
 const result = dotenv.config({path: '.env.local'});
 if (result.error) throw result.error;
-
-import initiateWorkers from "./_reactivestack/functions/initiate.workers";
-import processModels from "./_reactivestack/mongodb/functions/process.models";
-import MongoDBConnector from "./_reactivestack/mongodb/mongodb.connector";
 
 const MONGODB_URI: string = process.env.MONGODB_URI || '';
 processModels(path.join(__dirname, 'models'));

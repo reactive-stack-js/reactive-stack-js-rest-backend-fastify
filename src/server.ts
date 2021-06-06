@@ -21,9 +21,7 @@ import fastifyBlipp from 'fastify-blipp';
 import fastifyHelmet from 'fastify-helmet';
 
 import websocket from './functions/websocket';
-import addFastifyRoutes from './_reactivestack/routing/functions/add.fastify.routes';
-import processModels from './_reactivestack/mongodb/functions/process.models';
-import MongoDBConnector from './_reactivestack/mongodb/mongodb.connector';
+import {addFastifyRoutes, processModels, MongoDBConnector} from 'reactive-stack-js-backend';
 
 const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({logger: false});
 
