@@ -9,11 +9,12 @@ const result = dotenv.config({path: '.env.local'});
 if (result.error) throw result.error;
 
 import initiateWorkers from "./_reactivestack/functions/initiate.workers";
-import processModels from "./_reactivestack/databases/mongodb/functions/process.models";
-import MongoDBConnector from "./_reactivestack/databases/mongodb/mongodb.connector";
+import processModels from "./_reactivestack/mongodb/functions/process.models";
+import MongoDBConnector from "./_reactivestack/mongodb/mongodb.connector";
 
+const MONGODB_URI: string = process.env.MONGODB_URI || '';
 processModels(path.join(__dirname, 'models'));
-MongoDBConnector.init();
+MongoDBConnector.init(MONGODB_URI);
 
 initiateWorkers(path.join(__dirname, 'workers'));
 console.log('All workers started.');
